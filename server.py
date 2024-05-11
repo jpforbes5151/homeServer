@@ -39,7 +39,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
 def run(
     server_class=HTTPServer,
     handler_class=CustomRequestHandler,
-    port=8888,
+    port=69420,
     directory=None, # forces the server to only display files that it should. default is set to None.
 ):
     if directory:  # Change the current working directory if directory is specified
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dir", type=str, help="Directory to serve files from", default="."
     )
-    parser.add_argument("--port", type=int, help="Port to serve HTTP on", default=8888)
+    parser.add_argument("--port", type=int, help="Port to serve HTTP on", default=42069)
     args = parser.parse_args()
 
     run(port=args.port, directory=args.dir)
