@@ -7,10 +7,11 @@
 
 ![Valheim Image](/images/valheim.png)
 
-Valheim - Public Beta (Ashlands) (working on adding start/stop buttons via webhooks)  START | STOP
+Valheim - Public Beta (Ashlands) (working on adding start/stop buttons via webhooks)  [START](/start_valheim)
+
 
 ## VRising
 
 ![Vrising Image](/images/vrising.png)
 
-VRising - Version 1.0 (working on adding start/stop buttons via webhooks) START | STOP
+VRising - Version 1.0 (working on adding start/stop buttons via webhooks) [START](/start_vrising)

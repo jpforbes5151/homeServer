@@ -2,10 +2,43 @@ import os
 import argparse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
+class CustomRequestHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        # starting valheim server
+        if self.path == '/start_valheim/':  # Define the endpoint /run_script
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # Run your shell script here
+            # Replace 'your_script.sh' with the name of your shell script
+            import subprocess
+            subprocess.run(['sh', '/home/jserver/valheim_start.sh'])
+
+            # Send a response to the client
+            self.wfile.write(b'Valheim Server is spinning Up.')
+
+        elif self.path == '/start_vrising/':  # Define the endpoint /run_script
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # Run your shell script here
+            # Replace 'your_script.sh' with the name of your shell script
+            import subprocess
+            subprocess.run(['sh', '/home/jserver/vrising_start.sh'])
+
+            # Send a response to the client
+            self.wfile.write(b'Vrising Server is spinning up.')
+
+        else:
+            # If the requested path is not recognized, serve files as usual
+            return super().do_GET()
+
 
 def run(
     server_class=HTTPServer,
-    handler_class=SimpleHTTPRequestHandler,
+    handler_class=CustomRequestHandler,
     port=8888,
     directory=None, # forces the server to only display files that it should. default is set to None.
 ):
