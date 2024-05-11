@@ -13,7 +13,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             # Run your shell script here
             # Replace 'your_script.sh' with the name of your shell script
             import subprocess
-            subprocess.run(['sh', '/home/jserver/valheim_start.sh'])
+            subprocess.run(['sh', '/home/jserver/valheim_server/valheim_start.sh'])
 
             # Send a response to the client
             self.wfile.write(b'Valheim Server is spinning Up.')
@@ -26,7 +26,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             # Run your shell script here
             # Replace 'your_script.sh' with the name of your shell script
             import subprocess
-            subprocess.run(['sh', '/home/jserver/vrising_start.sh'])
+            subprocess.run(['sh', '/home/jserver/vrising_server/vrising_start.sh'])
 
             # Send a response to the client
             self.wfile.write(b'Vrising Server is spinning up.')
