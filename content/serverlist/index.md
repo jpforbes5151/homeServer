@@ -1,7 +1,6 @@
-[Back To Home Page](/)
-
 # Containers
 
+[Back To Home Page](/)
 
 ## Valheim
 
@@ -15,6 +14,12 @@ To directly connect to the Valheim server once it has started, use the following
 
 ``` 73.107.155.0:2456 ```
 
+Check the 'server_information' Discord channel for the password to the server.
+
+** Valheim Server Status **
+
+<div style="color: #bf0622; display: inline;">OFFLINE</div>
+
 
 ## VRising
 
@@ -27,3 +32,9 @@ VRising - Version 1.0 [START VRising Server](/start_vrising)
 To directly connect to the Vrising server once it has started, use the following IP/Port information to connect to the server directly (this server is not listed on Steam):
 
 ``` 73.107.155.0:9876 ```
+
+Check the 'server_information' Discord channel for the password to the server.
+
+** VRising Server Status **
+
+<div style="color: #bf0622; display: inline;">OFFLINE</div>

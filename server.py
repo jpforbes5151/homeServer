@@ -3,6 +3,11 @@ import argparse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 class CustomRequestHandler(SimpleHTTPRequestHandler):
+    valheimIsOnline = False
+    vrisingIsOnline = False
+    # updating path flags when on local machine versus remote server
+    debug = True
+
     def do_GET(self):
         # starting valheim server
         if self.path == '/start_valheim/':  # Define the endpoint /run_script
@@ -10,30 +15,88 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
 
-            # Run your shell script here
-            # Replace 'your_script.sh' with the name of your shell script
+            # running a specified script
             import subprocess
             subprocess.run(['sh', '/home/jserver/valheim_server/valheim_start.sh'])
 
             # Send a response to the client
-            self.wfile.write(b'Valheim Server is spinning Up.')
+            self.valheimIsOnline = True
+            self.render_html_template()
+            # kinda jank but makes a better looking response page
+            self.wfile.write(b'''
+                <html>
+                <head>
+                    <meta http-equiv="refresh" content="5;url=/serverlist/">
+                    <link href="/index.css" rel="stylesheet">
+                </head>
+                <body>
+                    <p>The VRising Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
+                    <br>       
+                    <br>
+                    <p>You will be redirected to the Containers page shortly.</p> 
+                    <br>        
+                    <br>
+                    <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
+                </body>
+                </html>
+            ''')
 
         elif self.path == '/start_vrising/':  # Define the endpoint /run_script
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
 
-            # Run your shell script here
-            # Replace 'your_script.sh' with the name of your shell script
+            # running a specified script
             import subprocess
             subprocess.run(['sh', '/home/jserver/vrising_server/vrising_start.sh'])
 
             # Send a response to the client
-            self.wfile.write(b'Vrising Server is spinning up.')
+            self.vrisingIsOnline = True
+            self.render_html_template()
+            self.wfile.write(b'''
+                <html>
+                <head>
+                    <meta http-equiv="refresh" content="5;url=/serverlist/">
+                    <link href="/index.css" rel="stylesheet">
+                </head>
+                <body>
+                    <p>The VRising Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
+                    <br>       
+                    <br>
+                    <p>You will be redirected to the Containers page shortly.</p> 
+                    <br>        
+                    <br>
+                    <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
+                </body>
+                </html>
+            ''')   
 
         else:
             # If the requested path is not recognized, serve files as usual
             return super().do_GET()
+    
+    def render_html_template(self):
+        if self.debug:
+            html_file_path = '/home/jpforbes/workspace/github.com/jpforbes5151/homeServer/public/serverlist/index.html'
+        else:
+            html_file_path = '/home/jserver/workspace/homeServer/public/serverlist/index.html'
+        # Read the HTML template file
+        with open(html_file_path, 'r') as file:
+            html_content = file.read()
+
+        # This gets pretty gross, but I didn't want to make more logic to replace specific pieces
+        replacements = {
+            '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Valheim Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.valheimIsOnline else '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
+            '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> VRising Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.vrisingIsOnline else '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>'
+        }
+
+        # Perform the replacements in the HTML content
+        for old_text, new_text in replacements.items():
+            html_content = html_content.replace(old_text, new_text)
+
+        # Write the modified HTML content back to the file
+        with open(html_file_path, 'w') as file:
+            file.write(html_content)
 
 
 def run(

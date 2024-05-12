@@ -1,3 +1,4 @@
+import re
 import os
 from pathlib import Path
 from markdown_blocks import markdown_to_html_node
@@ -44,3 +45,24 @@ def extract_title(md):
         if line.startswith("# "):
             return line[2:]
     raise ValueError("No title found")
+
+# not currently being used. Thinking of a way to dynamically update the markdown file then
+# render the page again
+def extract_variables(markdown_file):
+    variables = {}
+    
+    # Define the regular expression pattern to match variables like {{ variable }}
+    pattern = r'\{\{\s*(\w+)\s*\}\}'
+    
+    # Read the Markdown file
+    with open(markdown_file, 'r') as file:
+        markdown_content = file.read()
+    
+    # Find all matches of the pattern in the Markdown content
+    matches = re.findall(pattern, markdown_content)
+    
+    # Extract variable names and add them to the variables dictionary
+    for match in matches:
+        variables[match] = None  # Initialize variables with None values
+    
+    return variables
