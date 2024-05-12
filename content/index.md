@@ -7,3 +7,6 @@ This is my local server. Below are the various containers currently being mainta
 ## List of current Containers
 
 [Containers](/serverlist)
+
+### General Information
+
