@@ -2,11 +2,18 @@
 
 [Back To Home Page](/)
 
+<br>
+
 ## Valheim
 
 ![Valheim Image](/images/valheim.png)
 
-Valheim - Public Beta (Ashlands) [START Valheim Server](/start_valheim)
+Valheim - Public Beta (Ashlands)        [START Valheim Server](/start_valheim)
+
+** Valheim Server Status **
+
+<div style="color: #bf0622; display: inline;">OFFLINE</div>
+
 
 ### Connecting to the Valheim server once started
 
@@ -16,16 +23,19 @@ To directly connect to the Valheim server once it has started, use the following
 
 Check the 'server_information' Discord channel for the password to the server.
 
-** Valheim Server Status **
-
-<div style="color: #bf0622; display: inline;">OFFLINE</div>
-
+<br>
+<br>
 
 ## VRising
 
 ![Vrising Image](/images/vrising.png)
 
-VRising - Version 1.0 [START VRising Server](/start_vrising)
+VRising - Version 1.0      [START VRising Server](/start_vrising)
+
+** VRising Server Status **
+
+<div style="color: #bf0622; display: inline;">OFFLINE</div>
+
 
 ### Connecting to the Vrising server once started
 
@@ -34,7 +44,3 @@ To directly connect to the Vrising server once it has started, use the following
 ``` 73.107.155.0:9876 ```
 
 Check the 'server_information' Discord channel for the password to the server.
-
-** VRising Server Status **
-
-<div style="color: #bf0622; display: inline;">OFFLINE</div>
