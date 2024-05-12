@@ -5,8 +5,10 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 class CustomRequestHandler(SimpleHTTPRequestHandler):
     valheimIsOnline = False
     vrisingIsOnline = False
+    enshroudedIsOnline = False
+
     # updating path flags when on local machine versus remote server
-    debug = True
+    debug = False
 
     def do_GET(self):
         # starting valheim server
@@ -71,6 +73,36 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
                 </html>
             ''')   
 
+        elif self.path == '/start_enshrouded/':  # Define the endpoint /run_script
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # running a specified script
+            import subprocess
+            subprocess.run(['sh', '/home/jserver/enshrouded_server/enshrouded_start.sh'])
+
+            # Send a response to the client
+            self.enshroudedIsOnline = True
+            self.render_html_template()
+            self.wfile.write(b'''
+                <html>
+                <head>
+                    <meta http-equiv="refresh" content="2;url=/serverlist/">
+                    <link href="/index.css" rel="stylesheet">
+                </head>
+                <body>
+                    <p>The Enshrouded Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
+                    <br>       
+                    <br>
+                    <p>You will be redirected to the Containers page in ~3 seconds.</p> 
+                    <br>        
+                    <br>
+                    <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
+                </body>
+                </html>
+            ''')
+
         else:
             # If the requested path is not recognized, serve files as usual
             return super().do_GET()
@@ -87,7 +119,8 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
         # This gets pretty gross, but I didn't want to make more logic to replace specific pieces
         replacements = {
             '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Valheim Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.valheimIsOnline else '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
-            '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> VRising Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.vrisingIsOnline else '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>'
+            '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> VRising Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.vrisingIsOnline else '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
+            '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Enshrouded Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.enshroudedIsOnline else '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>'
         }
 
         # Perform the replacements in the HTML content
