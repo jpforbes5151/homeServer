@@ -26,14 +26,14 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b'''
                 <html>
                 <head>
-                    <meta http-equiv="refresh" content="5;url=/serverlist/">
+                    <meta http-equiv="refresh" content="2;url=/serverlist/">
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
                     <p>The VRising Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
                     <br>       
                     <br>
-                    <p>You will be redirected to the Containers page shortly.</p> 
+                    <p>You will be redirected to the Containers page in ~3 seconds.</p> 
                     <br>        
                     <br>
                     <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
@@ -56,14 +56,14 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b'''
                 <html>
                 <head>
-                    <meta http-equiv="refresh" content="5;url=/serverlist/">
+                    <meta http-equiv="refresh" content="2;url=/serverlist/">
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
                     <p>The VRising Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
                     <br>       
                     <br>
-                    <p>You will be redirected to the Containers page shortly.</p> 
+                    <p>You will be redirected to the Containers page in ~3 seconds.</p> 
                     <br>        
                     <br>
                     <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
