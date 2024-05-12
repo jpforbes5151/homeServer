@@ -2,10 +2,7 @@
 
 ![Rivendell](images/rivendell.png)
 
-Below are the various containers currently being maintained.
 
-## List of current Servers
+## List of Containers
 
-[Server List](/serverlist)
-
-
+[Game Servers](/serverlist)
