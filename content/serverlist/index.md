@@ -30,7 +30,7 @@ Check the 'server_information' Discord channel for the password to the server.
 
 ![Valheim Image](/images/valheim.png)
 
-Valheim - Public Beta (Ashlands) v.0.218.14       [START Valheim Server](/start_valheim)
+Valheim - Ashlands v.0.218.15       [START Valheim Server](/start_valheim)
 
 ** Valheim Server Status **
 
