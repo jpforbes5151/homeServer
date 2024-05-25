@@ -1,16 +1,19 @@
 import os
 import argparse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+import requests
 
 class CustomRequestHandler(SimpleHTTPRequestHandler):
     valheimIsOnline = False
     vrisingIsOnline = False
     enshroudedIsOnline = False
+    public_ip = requests.get('https://api.ipify.org').text
 
     # updating path flags when on local machine versus remote server
     debug = False
 
     def do_GET(self):
+        self.render_html_template()
         # starting valheim server
         if self.path == '/start_valheim/':  # Define the endpoint /run_script
             self.send_response(200)
@@ -28,7 +31,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b'''
                 <html>
                 <head>
-                    <meta http-equiv="refresh" content="2;url=/serverlist/">
+                    <meta http-equiv="refresh" content="4;url=/serverlist/">
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
@@ -120,7 +123,8 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
         replacements = {
             '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Valheim Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.valheimIsOnline else '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
             '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> VRising Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.vrisingIsOnline else '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
-            '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Enshrouded Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.enshroudedIsOnline else '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>'
+            '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Enshrouded Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.enshroudedIsOnline else '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
+            '{{ ip }}' : self.public_ip if self.public_ip else 'no public IP has been assigned'
         }
 
         # Perform the replacements in the HTML content

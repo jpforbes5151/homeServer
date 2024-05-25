@@ -19,7 +19,7 @@ Enshrouded - Version 2.0.5      [START Enshrouded Server](/start_enshrouded)
 
 To directly connect to the Enshrouded server once it has started, use the following IP/Port information to connect to the server directly (this server is not listed on Steam):
 
-``` 73.107.155.0:15637 ```
+``` {{ ip }}:15637 ```
 
 Check the 'server_information' Discord channel for the password to the server.
 
@@ -41,7 +41,7 @@ Valheim - Ashlands v.0.218.15       [START Valheim Server](/start_valheim)
 
 To directly connect to the Valheim server once it has started, use the following IP/Port information to connect to the server directly (this server is not listed on Steam):
 
-``` 73.107.155.0:2456 ```
+``` {{ ip }}:2456 ```
 
 Check the 'server_information' Discord channel for the password to the server.
 
@@ -63,6 +63,6 @@ VRising - Version 1.0      [START VRising Server](/start_vrising)
 
 To directly connect to the Vrising server once it has started, use the following IP/Port information to connect to the server directly (this server is not listed on Steam):
 
-``` 73.107.155.0:9876 ```
+``` {{ ip }}:9876 ```
 
 Check the 'server_information' Discord channel for the password to the server.
