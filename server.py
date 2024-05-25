@@ -10,7 +10,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
     public_ip = requests.get('https://api.ipify.org').text
 
     # updating path flags when on local machine versus remote server
-    debug = True
+    debug = False
 
     def do_GET(self):
         self.render_html_template()
