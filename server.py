@@ -7,11 +7,20 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
     valheimIsOnline = False
     vrisingIsOnline = False
     enshroudedIsOnline = False
-    public_ip = requests.get('https://api.ipify.org').text
+    IP_PATH = '/home/jserver/workspace/discordHooks/current_ip.txt'
+    #IP_PATH = '/home/jpforbes/workspace/github.com/jpforbes5151/discordHooks/current_ip.txt'
 
     # updating path flags when on local machine versus remote server
     debug = False
 
+    try:
+        with open(IP_PATH, 'r') as file:
+            public_ip = file.read().strip()
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File not found. check your path and permissions.")
+
+    
+ 
     def do_GET(self):
         self.render_html_template()
         # starting valheim server
@@ -61,7 +70,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b'''
                 <html>
                 <head>
-                    <meta http-equiv="refresh" content="2;url=/serverlist/">
+                    <meta http-equiv="refresh" content="4;url=/serverlist/">
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
@@ -91,7 +100,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(b'''
                 <html>
                 <head>
-                    <meta http-equiv="refresh" content="2;url=/serverlist/">
+                    <meta http-equiv="refresh" content="4;url=/serverlist/">
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
