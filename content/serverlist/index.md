@@ -8,7 +8,7 @@
 
 ![Enshrouded Image](/images/enshrouded.png)
 
-Enshrouded - Version 2.0.5      [START Enshrouded Server](/start_enshrouded)
+Enshrouded - Version 0.7.2.0      [START Enshrouded Server](/start_enshrouded)
 
 ** Enshrouded Server Status **
 
@@ -26,11 +26,33 @@ Check the 'server_information' Discord channel for the password to the server.
 <br>
 <br>
 
+## Palworld
+
+![Palworld Image](/images/palworld.png)
+
+Palworld - Version 0.2.4.0      [START Palworld Server](/start_palworld)
+
+** Palworld Server Status **
+
+<div style="color: #bf0622; display: inline;">OFFLINE</div>
+
+
+### Connecting to the Palworld server once started
+
+To directly connect to the Palworld server once it has started, use the following IP/Port information to connect to the server directly (this server is not listed on Steam):
+
+``` {{ ip }}:8211 ```
+
+Check the 'server_information' Discord channel for the password to the server.
+
+<br>
+<br>
+
 ## Valheim
 
 ![Valheim Image](/images/valheim.png)
 
-Valheim - Ashlands v.0.218.15       [START Valheim Server](/start_valheim)
+Valheim - Ashlands v.0.218.16       [START Valheim Server](/start_valheim)
 
 ** Valheim Server Status **
 
