@@ -7,13 +7,16 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
     valheimIsOnline = False
     vrisingIsOnline = False
     enshroudedIsOnline = False
-    IP_PATH = '/home/jserver/workspace/discordHooks/current_ip.txt'
-    #IP_PATH = '/home/jpforbes/workspace/github.com/jpforbes5151/discordHooks/current_ip.txt'
+    palworldIsOnline = False
 
     # updating path flags when on local machine versus remote server
-    debug = False
+    debug = True
 
     try:
+        if debug:
+            IP_PATH = '/home/jpforbes/workspace/github.com/jpforbes5151/discordHooks/current_ip.txt'
+        else:
+            IP_PATH = '/home/jserver/workspace/discordHooks/current_ip.txt'
         with open(IP_PATH, 'r') as file:
             public_ip = file.read().strip()
     except FileNotFoundError:
@@ -44,7 +47,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
                     <link href="/index.css" rel="stylesheet">
                 </head>
                 <body>
-                    <p>The VRising Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
+                    <p>The Valheim Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
                     <br>       
                     <br>
                     <p>You will be redirected to the Containers page in ~3 seconds.</p> 
@@ -114,6 +117,36 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
                 </body>
                 </html>
             ''')
+        
+        elif self.path == '/start_palworld/':  # Define the endpoint /run_script
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # running a specified script
+            import subprocess
+            subprocess.run(['sh', '/home/jserver/palworld_server/palworld_start.sh'])
+
+            # Send a response to the client
+            self.palworldIsOnline = True
+            self.render_html_template()
+            self.wfile.write(b'''
+                <html>
+                <head>
+                    <meta http-equiv="refresh" content="4;url=/serverlist/">
+                    <link href="/index.css" rel="stylesheet">
+                </head>
+                <body>
+                    <p>The Palworld Server is spinning up. Try to connect to the Server in ~2 minutes, as the container can take a short while to spin up.</p>
+                    <br>       
+                    <br>
+                    <p>You will be redirected to the Containers page in ~3 seconds.</p> 
+                    <br>        
+                    <br>
+                    <p>If the page doesn't automatically redirect, <a href="/serverlist/">click here</a>.</p>
+                </body>
+                </html>
+            ''')
 
         else:
             # If the requested path is not recognized, serve files as usual
@@ -133,6 +166,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
             '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Valheim Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.valheimIsOnline else '<p><b> Valheim Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
             '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> VRising Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.vrisingIsOnline else '<p><b> VRising Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
             '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Enshrouded Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.enshroudedIsOnline else '<p><b> Enshrouded Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
+            '<p><b> Palworld Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>': '<p><b> Palworld Server Status </b></p><p><div style="color: #276e0d; display: inline;"><b>ONLINE</b></div></p>' if self.palworldIsOnline else '<p><b> Palworld Server Status </b></p><p><div style="color: #bf0622; display: inline;">OFFLINE</div></p>',
             '{{ ip }}' : self.public_ip if self.public_ip else 'no public IP has been assigned'
         }
 

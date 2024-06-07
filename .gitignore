@@ -3,3 +3,5 @@ public/
 /logs
 server.crt
 server.key
+valheim_start.sh
+vrising_start.sh
