@@ -10,7 +10,7 @@ class CustomRequestHandler(SimpleHTTPRequestHandler):
     palworldIsOnline = False
 
     # updating path flags when on local machine versus remote server
-    debug = True
+    debug = False
 
     try:
         if debug:
