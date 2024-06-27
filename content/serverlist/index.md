@@ -30,7 +30,7 @@ Check the 'server_information' Discord channel for the password to the server.
 
 ![Palworld Image](/images/palworld.png)
 
-Palworld - Version 0.2.4.0      [START Palworld Server](/start_palworld)
+Palworld - Version 0.3.1      [START Palworld Server](/start_palworld)
 
 ** Palworld Server Status **
 
